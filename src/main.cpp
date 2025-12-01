@@ -3,7 +3,10 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "Window.hpp"
+#include "Home.hpp"
 #include "Graph.hpp"
+#include "SoundManager.hpp"
 
 /**
  * @brief Método encargado de leer los nodos del grafo desde un archivo `.csv`.
@@ -63,10 +66,44 @@ int readEdges(Graph& graph) {
 }
 
 int main() {
+  // Componentes de juego
+  Window window;
+  Home homeScreen;
+  SoundManager soundManager;
+
+  // Grafo que representa el planeta
   Graph graph;
 
+  // Agregar elementos al grafo
   readNodes(graph);
   readEdges(graph);
+
+  // Ciclo del juego
+  std::uint8_t paused = 0;
+  std::uint8_t inHome = 1;
+  std::uint8_t inGame = 0;
+  std::uint8_t inSettings = 0;
+
+  // Inicializar ventana de juego
+  window.initializeWindow();
+  // Inicializar pantalla de ajustes
+  homeScreen.initializeHomeScreen();
+
+  // Inicializar sonidos
+  soundManager.initializeSounds();
+
+  // Ciclo de juego
+  while (!WindowShouldClose()) {
+    window.beginWindowDraw();
+    if (inHome) {
+      homeScreen.drawHomeScreen();
+      homeScreen.hasGameStarted(inGame, &soundManager);
+      inHome = !(inGame || inSettings);
+    }
+    window.endWindowDraw();
+  }
+  soundManager.unloadSounds();
+  window.killWindow();  // Cierra la ventana
 
   // Prueba
   std::cout << "cantidad de nodos: " << graph.getNodeCount() << std::endl;
