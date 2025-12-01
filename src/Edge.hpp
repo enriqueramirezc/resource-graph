@@ -6,5 +6,8 @@ class Edge {
   int origin;
   int destination;
   int weight;
+ public:
+  // Constructor
+  Edge(int dest, int w) : destination(dest), weight(w) {}
 };  // class Edge
 #endif  // EDGE_HPP

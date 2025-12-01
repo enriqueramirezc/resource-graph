@@ -14,8 +14,26 @@ class Graph {
  public:
   Graph() : startNode(-1) {}  // Se inicializa en -1 el punto de inicio
 
-  void addNode(const Node& node);
-  void addEdge(int origin, int destination, int weight);
+  void addNode(const Node& node) {
+    nodes.push_back(node);
+    if (node.type == 1) {
+      startNode = node.id;
+    }
+  }
 
+  void addEdge(int origin, int destination, int weight) {
+    if (origin >= adjList.size()) {
+      adjList.resize(origin + 1);
+    }
+    adjList[origin].push_back(Edge(destination, weight));
+  }
+
+  int getNodeCount() const {
+    return nodes.size();
+  }
+
+  int getStartNode() const {
+    return startNode;
+  }
 };  // class Graph
 #endif  // GRAPH_HPP
