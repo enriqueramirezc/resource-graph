@@ -1,10 +1,14 @@
+// Copyright [2025] Enrique Ramírez
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include "Graph.hpp"
 
-// Leer archivo de nodos
+/**
+ * @brief Método encargado de leer los nodos del grafo desde un archivo `.csv`.
+ * @param graph Grafo al que se van a agregar nos nodos leídos.
+ */
 int readNodes(Graph& graph) {
   std::ifstream archivoNodos("Nodes.csv");
   if (!archivoNodos.is_open()) {
@@ -29,7 +33,11 @@ int readNodes(Graph& graph) {
   return 0;
 }
 
-// Leer archivo de aristas
+/**
+ * @brief Método encargado de leer las aristas de un grafo desde un archivo
+ * `.csv`.
+ * @param graph Grafo al cual pertenecen las aristas.
+ */
 int readEdges(Graph& graph) {
   std::ifstream archivoAristas("Edges.csv");
   if (!archivoAristas.is_open()) {

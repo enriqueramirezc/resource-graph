@@ -1,13 +1,18 @@
+// Copyright [2025] Enrique Ramírez
 #ifndef NODE_HPP
 #define NODE_HPP
 
+/**
+ * @brief Clase que representa un nodo dentro de un grafo
+ */
 class Node {
   friend class Graph;
  private:
-  int id;
-  int type;  // 0=Vacío, 1=Base, 2=Recurso
-  int value;
-  int x, y;  // Coordenadas
+  int id;  // Número de nodo
+  int type;  // Tipo de nodo (0=vacío, 1=inicio, 2=recurso)
+  int value;  // Valor del nodo
+  int x;  // Coordenada del nodo en el eje x
+  int y;  // Coordenada del nodo en el eje y
  public:
   // Constructor
   Node(int id, int type, int value, int x, int y) 
