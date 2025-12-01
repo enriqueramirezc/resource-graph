@@ -3,6 +3,7 @@
 
 class Edge {
  private:
+  int origin;
   int destination;
   int weight;
 };  // class Edge
