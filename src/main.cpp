@@ -83,8 +83,7 @@ int main() {
   // Ciclo del juego
   std::uint8_t paused = 0;
   std::uint8_t inHome = 1;
-  std::uint8_t inGame = 0;
-  std::uint8_t inSettings = 0;
+  std::uint8_t playing = 0;
 
   // Inicializar ventana de juego
   window.initializeWindow();
@@ -103,15 +102,14 @@ int main() {
   window.beginWindowDraw();
   if (inHome) {
     homeScreen.drawHomeScreen();
-    homeScreen.hasGameStarted(inGame, &soundManager);
-    inHome = !(inGame || inSettings);
-  } else if (inGame) {  // partida
-    // mainGame.setInteractable();
+    homeScreen.hasGameStarted(playing, &soundManager);
+    inHome = !(playing);
+  } else if (playing) {  // partida
     game.drawGraph(graph);
     game.drawGameElements(&soundManager);
     game.isGamePaused(paused, &soundManager);
-    inGame = !(paused);
-    if (!inGame) game.setNotInteractable();
+    playing = !(paused);
+    if (!playing) game.setNotInteractable();
   }
   window.endWindowDraw();
 }

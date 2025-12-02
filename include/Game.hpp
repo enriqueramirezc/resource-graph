@@ -5,7 +5,6 @@
  */
 #pragma once
 #include "Shared.hpp"
-// #include "Player.hpp"
 #include "Button.hpp"
 #include "Graph.hpp"
 
@@ -14,20 +13,9 @@
  */
 class Game {
  private:
-  // Path al botón de pausa
-  const char* pause_button_path = "assets/img/pause_button.png";
-  // Objeto jugador humano
-  // Player player;
-  // // Objeto jugador no humano
-  // Bot bot;
-  // // Pelota
-  // Ball ball;
-  // Botón de pausa en la parte superior de la pantalla de la partida
-  Button pause_button;
+
   // Indicador de si un elemento es interactuable
   std::uint8_t interactable;
-  // Puntaje jugador
-  // Marcador marcadorPly;
 
   void updateElements(SoundManager* soundManager);
 
@@ -59,8 +47,6 @@ class Game {
 
   /**
    * @brief Método encargado de verificar si la partida se encuentra pausada.
-   * @remarks La partida se pausa tocando el botón de pausa en la ventana o con
-   * la tecla espacio.
    */
   void isGamePaused(byte& paused, SoundManager* soundManager);
 

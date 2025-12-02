@@ -5,39 +5,44 @@
  */
 #include "Button.hpp"
 
-// Constructor
-Button::Button() {}
-
-// Inicializa un botón
-void Button::initializeButton(char* imgPath, Vector2 vec) {
-  position = vec;
-  this->texture = LoadTexture(imgPath);
-  SetTextureFilter(texture, TEXTURE_FILTER_POINT);
+// Inicializar botón
+void Button::initializeButton(const char* txt, Vector2 pos, int size, Color col
+  , Color hover) {
+  this->text = txt;
+  this->position = pos;
+  this->fontSize = size;
+  this->color = col;
+  this->hoverColor = hover;
 }
 
-// Dibuja un botón
+// Dibujar botón en pantalla
 void Button::drawButton() {
-  Rectangle src{ 0, 0, (float)texture.width, (float)texture.height };
-  Rectangle dst{ position.x, position.y,
-  texture.width * 1.0f, texture.height * 1.0f};
-  Vector2 origin{ dst.width/2.0f, dst.height/2.0f };
-  DrawTexturePro(texture, src, dst, origin, 0.0f, WHITE);
+  int textWidth = MeasureText(text, fontSize);
+  Vector2 drawPos = {position.x - textWidth/2.0f, position.y};
+  
+  // Botón cambia de color si el mouse está encima de él
+  Color currentColor = isMouseAboveButton() ? hoverColor : color;
+  DrawText(text, drawPos.x, drawPos.y, fontSize, currentColor);
 }
 
-// Verifica si el mouse está sobre un botón
+// Verificar si se está encima del botón
 byte Button::isMouseAboveButton() {
-  Rectangle dst{ position.x, position.y,
-  texture.width, texture.height };
-  Vector2 origin{ dst.width/2.0f, dst.height/2.0f };
-  Rectangle bounds{ dst.x - origin.x, dst.y - origin.y, dst.width, dst.height };
-  Vector2 m = GetMousePosition();
-  return CheckCollisionPointRec(m, bounds);
+  int textWidth = MeasureText(text, fontSize);
+  Rectangle bounds = {
+    position.x - textWidth/2.0f,
+    position.y,
+    (float)textWidth,
+    (float)fontSize
+  };
+  Vector2 mousePos = GetMousePosition();
+  return CheckCollisionPointRec(mousePos, bounds);
 }
 
+// Verificar si se está tocando el botón
 byte Button::isButtonBeingClicked(SoundManager* soundManager) {
   if (isMouseAboveButton() && IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
     if (soundManager) {
-      soundManager->playButtonClick();  // Click
+      soundManager->playButtonClick();
     }
     return 1;
   }

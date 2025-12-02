@@ -9,14 +9,10 @@
 
 /**
  * @brief Clase responsable de generar la ventana de juego con su respectivo
- * fondo y fps.
+ * fondo negro y fps.
  */
 class Window {
  private:
-  // Ruta a la imagen de fondo para la ventana de juego
-  const char* game_background_path = "assets/img/bg_space_800x600.png";
-  Texture2D game_background;  // Fondo de la ventana
-
   /**
    * @brief Dibuja el fondo de la ventana
    */

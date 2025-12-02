@@ -12,12 +12,14 @@
  */
 class Home {
  private:
-  // Ruta a los elementos visuales de la pantalla de inicio
-  const char* start_button_path = "assets/img/start_button.png";
+  // Ruta al fondo de la pantalla de inicio
   const char* bg_path = "assets/img/bg_space_800x600.png";
 
-  Button start_button;  // Botón de inicio
-  Texture2D blurBG;
+  // Botón de "start" de la partida
+  Button start_button;
+
+  // Textura de galaxia para el fondo del juego
+  Texture2D galaxy_background;
 
  public:
   /**

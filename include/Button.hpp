@@ -3,66 +3,49 @@
  * @note Código de elaboración propia adaptado de mi proyecto del curso CI0119,
  * hecho con los estudiantes Brandon Alfaro, David Orias y Joaquín Rodríguez.
  */
-#pragma once
-#include <stdio.h>
-#include "Shared.hpp"
+#ifndef BUTTON_HPP
+#define BUTTON_HPP
+
 #include "raylib.h"
 #include "SoundManager.hpp"
+#include <cstdint>
 
-const Vector2 home_button_pos = {
-  .x = WINDOW_WIDTH/2.0f,
-  .y = WINDOW_HEIGHT/2.0f + 60
-};
-
-const Vector2 resume_button_pos = {
-  .x = WINDOW_WIDTH/2.0f,
-  .y = WINDOW_HEIGHT/2.0f - 60
-};
-
-const Vector2 pause_button_pos = {
-  .x = WINDOW_WIDTH/2.0f,
-  .y = 25.0f
-};
-
-const Vector2 start_button_pos = {
-  .x = WINDOW_WIDTH/2.0f,
-  .y = WINDOW_HEIGHT/2.0f + 60
-};
+typedef std::uint8_t byte;
 
 /**
- * @brief Maneja la posición de los botones
+ * @brief Clase que representa un botón de texto dentro del juego.
  */
 class Button {
  private:
-  Vector2 position;  // Posicion del botón
-  Texture2D texture;  // Textura del botón
+  const char* text;  // Texto del botón
+  Vector2 position;  // Posición del botón
+  int fontSize;  // Tamaño de letra del texto del botón
+  Color color;  // Color del botón
+  Color hoverColor;  // Color del botón cuando el mouse está encima de él
 
  public:
-  /**
-   * @brief Constructor
-   */
-  Button();
+  // Constructor
+  Button() : text(""), fontSize(20), color(WHITE), hoverColor(YELLOW) {}
 
   /**
-   * @brief Carga la textura de un botón y su posición inicial
+   * @brief Método que inicializa un botón
    */
-  void initializeButton(char*, Vector2);
+  void initializeButton(const char* txt, Vector2 pos, int size, Color col
+    , Color hover);
 
   /**
-   * @brief Dibuja un botón en pantalla
+   * @brief Método para dibujar un botón
    */
   void drawButton();
 
   /**
-   * @brief Determina si el mouse se encuentra en el área del botón
-   * @return 1 si el mouse está en el área del botón, 0 si no
-  */
+   * @brief método que verifica si el cursor se encuentra sobre el botón
+   */
   byte isMouseAboveButton();
 
   /**
-   * @brief  Determina si el botón está siendo presionado, si ya fue presionado
-   * y el usuario mantiene presionado solo se activa una vez
-   * @return 1 si fue presionado, 0 si no
+   * @brief Método que verifica si el botón está siendo presionado
    */
   byte isButtonBeingClicked(SoundManager* soundManager);
-};
+};  // class Button
+#endif  // BUTTON_HPP

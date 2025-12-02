@@ -6,51 +6,25 @@
 #include "Game.hpp"
 
 void Game::updateElements(SoundManager* soundManager) {
-  // this->player.movePlayer();
-  // this->ball.moveBall(soundManager);
-  // this->bot.moveBot();
 }
 
 void Game::initializeGame() {
-  // // Inicializacion de los elementos
-  // this->player.initializePlayer();
-  
-  // this->ball.initializeBall();
-
-  // this->bot.initializeBot(&this->ball);
-
-  // this->ball.resetBallPosition();
-  this->pause_button.initializeButton((char*)pause_button_path
-    , pause_button_pos);
-  // this->marcadorBot.init({WINDOW_WIDTH/4, 30.0f});
-  // this->marcadorPly.init({(WINDOW_WIDTH/2 + WINDOW_WIDTH/4), 30.0f});
-
   // Dice que la escena es interactuable
   this->interactable = 0;
 }
 
 void Game::drawGameElements(SoundManager* soundManager) {
+  ClearBackground(BLACK);
   if (interactable) updateElements(soundManager);
-  // this->ball.drawBall();
-  // this->player.drawPlayer();
-  // this->bot.drawBot();
-  this->pause_button.drawButton();
-
 }
 
 // Pausar juego
 void Game::isGamePaused(byte& paused, SoundManager* soundManager) {
-  // Si se toca botón de pausa, pausamos
-  paused = (this->pause_button.isButtonBeingClicked(soundManager)) ? 1 : paused;
-  // Pero también, si tocamos espacio, pausamos
+  // Si tocamos espacio, pausamos
   if (IsKeyDown(KEY_SPACE)) paused = 1;
 }
 
 void Game::resetMatch() {
-  // this->player.resetPlayerPosition();
-  // this->bot.resetBot();
-  // this->ball.resetBallPosition();
-  // resetScore();
 }
 
 // Poner nodos en el área de juego
@@ -75,10 +49,10 @@ void Game::drawGraph(const Graph& graph) {
     }
     
     // Dibujar nodo
-    DrawCircle(node.getX(), node.getY(), radius, color);
+    DrawCircle(node.getX()*1.3, node.getY()*1.3, radius, color);
     
     // ID del nodo
     DrawText(TextFormat("%d", node.getId()), 
-      node.getX() - 5, node.getY() - 15, 10, WHITE);
+      (node.getX() - 5)*1.3, (node.getY() - 15)*1.3, 10, WHITE);
   }
 }

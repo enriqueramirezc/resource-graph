@@ -9,13 +9,9 @@ void Window::initializeWindow() {
   // Inicializa la ventana
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Proyecto II");
 
-  // Carga la textura del game_background
-  this->game_background = LoadTexture(game_background_path);
-
-  // Establece los FPS
+  // FPS del juego
   SetTargetFPS(60);
 }
-
 
 void Window::beginWindowDraw() {
   BeginDrawing();
@@ -27,9 +23,6 @@ void Window::endWindowDraw() {
 }
 
 void Window::drawWindowBackground() {
-  float drawW = game_background.width * SCALE;
-  float drawH = game_background.height * SCALE;
-  float offsetX = (WINDOW_WIDTH  - drawW) / 2.0f;
-  float offsetY = (WINDOW_HEIGHT - drawH) / 2.0f;
-  DrawTextureEx(game_background, {offsetX, offsetY}, 0.0f, SCALE, WHITE);
+  // Fondo negro en la partida
+  ClearBackground(BLACK);
 }
