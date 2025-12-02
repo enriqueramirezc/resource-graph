@@ -18,7 +18,7 @@ class Home {
   // Botón de "start" de la partida
   Button start_button;
 
-  // Textura de galaxia para el fondo del juego
+  // Textura de galaxia para el fondo del home screen
   Texture2D galaxy_background;
 
  public:
@@ -31,11 +31,6 @@ class Home {
    * @brief Renderizar pantalla de bienvenida
    */
   void drawHomeScreen();
-
-  /**
-   * @brief Para ir a settings
-   */
-  void gameSettings(byte& settings, SoundManager* soundManager);
 
   /**
    * @brief Verifica si se dio click al botón de inicio

@@ -13,11 +13,10 @@
  */
 class Game {
  private:
-
   // Indicador de si un elemento es interactuable
   std::uint8_t interactable;
 
-  void updateElements(SoundManager* soundManager);
+  void updateElements();
 
  public:
   /**
@@ -29,7 +28,7 @@ class Game {
   /**
    * @brief Rederiza los elementos de la partida en pantalla.
    */
-  void drawGameElements(SoundManager* soundManager);
+  void drawGameElements();
 
   /**
    * @brief Cambia el estado del juego,
@@ -48,7 +47,7 @@ class Game {
   /**
    * @brief Método encargado de verificar si la partida se encuentra pausada.
    */
-  void isGamePaused(byte& paused, SoundManager* soundManager);
+  void isGamePaused(byte& paused);
 
   /**
    * @brief Restablece el progreso de la partida.

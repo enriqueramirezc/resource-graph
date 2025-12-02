@@ -19,7 +19,7 @@ void Button::initializeButton(const char* txt, Vector2 pos, int size, Color col
 void Button::drawButton() {
   int textWidth = MeasureText(text, fontSize);
   Vector2 drawPos = {position.x - textWidth/2.0f, position.y};
-  
+
   // Botón cambia de color si el mouse está encima de él
   Color currentColor = isMouseAboveButton() ? hoverColor : color;
   DrawText(text, drawPos.x, drawPos.y, fontSize, currentColor);

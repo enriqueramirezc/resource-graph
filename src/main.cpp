@@ -20,17 +20,17 @@ int readNodes(Graph& graph) {
     std::cerr << "ERROR: No se pudo abrir Nodes.csv" << std::endl;
     return 1;
   }
-  
+
   std::string line;
   while (std::getline(archivoNodos, line)) {
     if (line.empty()) continue;
-    
+
     // Leer cada elemento
     std::stringstream ss(line);
     int id, type, value, x, y;
     char comma;
     ss >> id >> comma >> type >> comma >> value >> comma >> x >> comma >> y;
-    
+
     // Agregar el elemento al grafo
     graph.addNode(Node(id, type, value, x, y));
   }
@@ -53,13 +53,13 @@ int readEdges(Graph& graph) {
   std::string line;
   while (std::getline(archivoAristas, line)) {
     if (line.empty()) continue;
-    
+
     // Leer cada elemento
     std::stringstream ss(line);
     int origin, dest, weight;
     char comma;
     ss >> origin >> comma >> dest >> comma >> weight;
-    
+
     // Agregar la arista a la lista de adyacencia
     graph.addEdge(origin, dest, weight);
   }
@@ -109,13 +109,14 @@ int main() {
     homeScreen.hasGameStarted(playing, &soundManager);
     inHome = !(playing);
   } else if (playing) {  // partida
+    game.setInteractable();
     game.drawGraph(graph);
-    game.drawGameElements(&soundManager);
-    game.isGamePaused(paused, &soundManager);
+    game.drawGameElements();
+    game.isGamePaused(paused);
     playing = !(paused);
     if (!playing) game.setNotInteractable();
   } else if (paused) {
-    game.drawGameElements(&soundManager);
+    game.drawGameElements();
     pause.drawPauseMenu();
     pause.gameResumed(playing, &soundManager);
     pause.goHome(inHome, &soundManager);

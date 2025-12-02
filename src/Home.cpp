@@ -28,6 +28,7 @@ void Home::drawHomeScreen() {
 
 // Verificar si se ha presionado el botón start
 void Home::hasGameStarted(byte& startVar, SoundManager* soundManager) {
-  startVar = (this->start_button.isButtonBeingClicked(soundManager)) ? 1 : startVar;
+  startVar = (this->start_button.isButtonBeingClicked(soundManager))
+    ? 1 : startVar;
   if (IsKeyDown(KEY_ENTER)) startVar = 1;
 }

@@ -5,7 +5,7 @@
  */
 #include "Game.hpp"
 
-void Game::updateElements(SoundManager* soundManager) {
+void Game::updateElements() {
 }
 
 void Game::initializeGame() {
@@ -13,13 +13,13 @@ void Game::initializeGame() {
   this->interactable = 0;
 }
 
-void Game::drawGameElements(SoundManager* soundManager) {
+void Game::drawGameElements() {
   ClearBackground(BLACK);
-  if (interactable) updateElements(soundManager);
+  if (interactable) updateElements();
 }
 
 // Pausar juego
-void Game::isGamePaused(byte& paused, SoundManager* soundManager) {
+void Game::isGamePaused(byte& paused) {
   // Si tocamos espacio, pausamos
   if (IsKeyDown(KEY_SPACE)) paused = 1;
 }
@@ -30,12 +30,12 @@ void Game::resetMatch() {
 // Poner nodos en el área de juego
 void Game::drawGraph(const Graph& graph) {
   std::vector<Node> nodes = graph.getNodes();
-  
+
   for (int i = 0; i < nodes.size(); i++) {
     Node node = nodes[i];
     Color color;
     float radius;
-    
+
     // Colores según tipo
     if (node.getType() == 1) {  // Base
       color = BLUE;
@@ -47,12 +47,12 @@ void Game::drawGraph(const Graph& graph) {
       color = GRAY;
       radius = 4.0f;
     }
-    
+
     // Dibujar nodo
     DrawCircle(node.getX()*1.3, node.getY()*1.3, radius, color);
-    
+
     // ID del nodo
-    DrawText(TextFormat("%d", node.getId()), 
-      (node.getX() - 5)*1.3, (node.getY() - 15)*1.3, 10, WHITE);
+    DrawText(TextFormat("%d", node.getId())
+      , (node.getX() - 5)*1.3, (node.getY() - 15)*1.3, 10, WHITE);
   }
 }
