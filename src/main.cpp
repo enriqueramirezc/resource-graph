@@ -7,6 +7,7 @@
 #include "Home.hpp"
 #include "Graph.hpp"
 #include "Game.hpp"
+#include "Pause.hpp"
 #include "SoundManager.hpp"
 
 /**
@@ -72,6 +73,7 @@ int main() {
   Home homeScreen;
   Game game;
   SoundManager soundManager;
+  Pause pause;
 
   // Grafo que representa el planeta
   Graph graph;
@@ -94,6 +96,8 @@ int main() {
   // Inicializar partida
   game.initializeGame();
 
+  pause.initializePauseMenu();
+
   // Inicializar sonidos
   soundManager.initializeSounds();
 
@@ -110,6 +114,13 @@ int main() {
     game.isGamePaused(paused, &soundManager);
     playing = !(paused);
     if (!playing) game.setNotInteractable();
+  } else if (paused) {
+    game.drawGameElements(&soundManager);
+    pause.drawPauseMenu();
+    pause.gameResumed(playing, &soundManager);
+    pause.goHome(inHome, &soundManager);
+    paused = !(playing);
+    if (paused) paused = !(inHome);
   }
   window.endWindowDraw();
 }
