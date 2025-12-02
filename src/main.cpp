@@ -110,7 +110,8 @@ int main() {
     inHome = !(playing);
   } else if (playing) {  // partida
     game.setInteractable();
-    game.drawGraph(graph);
+    game.drawEdges(graph);
+    game.drawNodes(graph);
     game.drawGameElements();
     game.isGamePaused(paused);
     playing = !(paused);

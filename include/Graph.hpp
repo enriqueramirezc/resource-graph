@@ -54,5 +54,8 @@ class Graph {
     return nodes[id];
   }
   
+  const std::vector<std::vector<Edge>>& getAdjList() const {
+    return adjList;
+  }
 };  // class Graph
 #endif  // GRAPH_HPP

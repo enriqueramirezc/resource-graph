@@ -1,8 +1,4 @@
 // Copyright [2025] Enrique Ramírez
-/**
- * @note Código de elaboración propia adaptado de mi proyecto del curso CI0119,
- * hecho con los estudiantes Brandon Alfaro, David Orias y Joaquín Rodríguez.
- */
 #ifndef BUTTON_HPP
 #define BUTTON_HPP
 

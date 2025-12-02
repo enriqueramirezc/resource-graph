@@ -1,8 +1,4 @@
 // Copyright [2025] Enrique Ramírez
-/**
- * @note Código de elaboración propia adaptado de mi proyecto del curso CI0119,
- * hecho con los estudiantes Brandon Alfaro, David Orias y Joaquín Rodríguez.
- */
 #pragma once
 #include "Shared.hpp"
 #include "Button.hpp"
@@ -13,6 +9,9 @@
  */
 class Game {
  private:
+  float scale = 1.2f;
+  float offsetX = 30.0f;
+  float offsetY = 120.0f;
   // Indicador de si un elemento es interactuable
   std::uint8_t interactable;
 
@@ -54,5 +53,7 @@ class Game {
    */
   void resetMatch();
 
-  void drawGraph(const Graph& graph);
+  void drawNodes(const Graph& graph);
+
+  void drawEdges(const Graph& graph);
 };

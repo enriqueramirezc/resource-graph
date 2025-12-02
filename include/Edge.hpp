@@ -13,5 +13,13 @@ class Edge {
  public:
   // Constructor
   Edge(int dest, int w) : destination(dest), weight(w) {}
+
+  int getDestination() const {
+    return destination;
+  }
+
+  int getWeight() const {
+    return weight;
+  }
 };  // class Edge
 #endif  // EDGE_HPP

@@ -1,8 +1,4 @@
 // Copyright [2025] Enrique Ramírez
-/**
- * @note Código de elaboración propia adaptado de mi proyecto del curso CI0119,
- * hecho con los estudiantes Brandon Alfaro, David Orias y Joaquín Rodríguez.
- */
 #include "Game.hpp"
 
 void Game::updateElements() {
@@ -28,13 +24,8 @@ void Game::resetMatch() {
 }
 
 // Poner nodos en el área de juego
-void Game::drawGraph(const Graph& graph) {
+void Game::drawNodes(const Graph& graph) {
   std::vector<Node> nodes = graph.getNodes();
-
-  // Centrar y escalar elementos
-  float scale = 1.2f;
-  float offsetX = 30.0f;
-  float offsetY = 120.0f;
 
   for (int i = 0; i < nodes.size(); i++) {
     Node node = nodes[i];
@@ -58,5 +49,34 @@ void Game::drawGraph(const Graph& graph) {
 
     DrawCircle(x, y, radius, color);
     DrawText(TextFormat("%d", node.getId()), x - 9, y - 9, 18, BLACK);
+  }
+}
+
+// Dibujar aristas y sus pesos
+void Game::drawEdges(const Graph& graph) {
+  std::vector<Node> nodes = graph.getNodes();
+  const std::vector<std::vector<Edge>>& adjList = graph.getAdjList();
+
+  // Dibujar las aristas
+  for (int i = 0; i < adjList.size(); i++) {
+    Node origin = nodes[i];
+    float x1 = origin.getX() * scale + offsetX;
+    float y1 = origin.getY() * scale + offsetY;
+
+    for (int j = 0; j < adjList[i].size(); j++) {
+      Edge edge = adjList[i][j];
+      Node dest = nodes[edge.getDestination()];
+      float x2 = dest.getX() * scale + offsetX;
+      float y2 = dest.getY() * scale + offsetY;
+
+      // Dibujar línea
+      DrawLineEx((Vector2){x1, y1}, (Vector2){x2, y2}, 2.0f, RED);
+
+      // Dibujar el peso en el centro de la arista
+      float midX = (x1 + x2) / 2.0f;
+      float midY = (y1 + y2) / 2.0f;
+      DrawText(TextFormat("%d", edge.getWeight()), midX - 8, midY - 8, 15
+      , YELLOW);
+    }
   }
 }
