@@ -6,10 +6,10 @@
 #include "Pause.hpp"
 
 void Pause::initializePauseMenu() {
-  Vector2 pos_home = {WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f};
+  Vector2 pos_home = {WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f - 100};
   this->home_button.initializeButton("HOME", pos_home, 80, WHITE, YELLOW);
 
-  Vector2 pos_resume = {WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f + 60};
+  Vector2 pos_resume = {WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f + 30};
   this->resume_button.initializeButton("RESUME", pos_resume, 80, WHITE, YELLOW);
 }
 

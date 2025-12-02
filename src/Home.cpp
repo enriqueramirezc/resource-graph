@@ -11,8 +11,8 @@ void Home::initializeHomeScreen() {
   this->galaxy_background = LoadTexture(bg_path);
 
   // Inicializar Botón de "start"
-  Vector2 pos = {WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f + 60};
-  this->start_button.initializeButton("START", pos, 80, WHITE, YELLOW);
+  Vector2 pos = {WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f};
+  this->start_button.initializeButton("START", pos, 100, WHITE, YELLOW);
 }
 
 // Renderizar elementos de la pantalla de bienvenida

@@ -31,28 +31,32 @@ void Game::resetMatch() {
 void Game::drawGraph(const Graph& graph) {
   std::vector<Node> nodes = graph.getNodes();
 
+  // Centrar y escalar elementos
+  float scale = 1.2f;
+  float offsetX = 30.0f;
+  float offsetY = 120.0f;
+
   for (int i = 0; i < nodes.size(); i++) {
     Node node = nodes[i];
     Color color;
     float radius;
 
-    // Colores según tipo
     if (node.getType() == 1) {  // Base
       color = BLUE;
-      radius = 8.0f;
+      radius = 15.0f;
     } else if (node.getType() == 2) {  // Recurso
       color = GREEN;
-      radius = 6.0f;
+      radius = 15.0f;
     } else {  // Vacío
       color = GRAY;
-      radius = 4.0f;
+      radius = 15.0f;
     }
 
-    // Dibujar nodo
-    DrawCircle(node.getX()*1.3, node.getY()*1.3, radius, color);
+    // Aplicar escala y offset
+    float x = node.getX() * scale + offsetX;
+    float y = node.getY() * scale + offsetY;
 
-    // ID del nodo
-    DrawText(TextFormat("%d", node.getId())
-      , (node.getX() - 5)*1.3, (node.getY() - 15)*1.3, 10, WHITE);
+    DrawCircle(x, y, radius, color);
+    DrawText(TextFormat("%d", node.getId()), x - 9, y - 9, 18, BLACK);
   }
 }
