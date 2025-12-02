@@ -6,6 +6,7 @@
 #include "Window.hpp"
 #include "Home.hpp"
 #include "Graph.hpp"
+#include "Game.hpp"
 #include "SoundManager.hpp"
 
 /**
@@ -69,6 +70,7 @@ int main() {
   // Componentes de juego
   Window window;
   Home homeScreen;
+  Game game;
   SoundManager soundManager;
 
   // Grafo que representa el planeta
@@ -86,22 +88,33 @@ int main() {
 
   // Inicializar ventana de juego
   window.initializeWindow();
+
   // Inicializar pantalla de ajustes
   homeScreen.initializeHomeScreen();
+
+  // Inicializar partida
+  game.initializeGame();
 
   // Inicializar sonidos
   soundManager.initializeSounds();
 
   // Ciclo de juego
   while (!WindowShouldClose()) {
-    window.beginWindowDraw();
-    if (inHome) {
-      homeScreen.drawHomeScreen();
-      homeScreen.hasGameStarted(inGame, &soundManager);
-      inHome = !(inGame || inSettings);
-    }
-    window.endWindowDraw();
+  window.beginWindowDraw();
+  if (inHome) {
+    homeScreen.drawHomeScreen();
+    homeScreen.hasGameStarted(inGame, &soundManager);
+    inHome = !(inGame || inSettings);
+  } else if (inGame) {  // partida
+    // mainGame.setInteractable();
+    game.drawGraph(graph);
+    game.drawGameElements(&soundManager);
+    game.isGamePaused(paused, &soundManager);
+    inGame = !(paused);
+    if (!inGame) game.setNotInteractable();
   }
+  window.endWindowDraw();
+}
   soundManager.unloadSounds();
   window.killWindow();  // Cierra la ventana
 

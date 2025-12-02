@@ -17,5 +17,21 @@ class Node {
   // Constructor
   Node(int id, int type, int value, int x, int y) 
   : id(id), type(type), value(value), x(x), y(y) {}
+
+  int getX() const {
+    return x;
+  }
+
+  int getY() const {
+    return y;
+  }
+
+  int getType() const {
+    return type;
+  }
+
+  int getId() const {
+    return id;
+  }
 };  // class Node
 #endif  // NODE_HPP

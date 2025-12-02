@@ -45,5 +45,14 @@ class Graph {
   int getStartNode() const {
     return startNode;
   }
+
+  const std::vector<Node>& getNodes() const {
+    return nodes;
+  }
+
+  const Node& getNode(int id) const {
+    return nodes[id];
+  }
+  
 };  // class Graph
 #endif  // GRAPH_HPP
