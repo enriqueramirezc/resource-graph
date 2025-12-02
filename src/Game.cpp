@@ -75,6 +75,7 @@ void Game::drawEdges(const Graph& graph) {
       // Dibujar el peso en el centro de la arista
       float midX = (x1 + x2) / 2.0f;
       float midY = (y1 + y2) / 2.0f;
+      DrawRectangle(midX - 10, midY - 10, 20, 12, BLACK);
       DrawText(TextFormat("%d", edge.getWeight()), midX - 8, midY - 8, 15
       , YELLOW);
     }
