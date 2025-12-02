@@ -3,12 +3,14 @@
 #include "Shared.hpp"
 #include "Button.hpp"
 #include "Graph.hpp"
+#include "Player.hpp"
 
 /**
  * @brief Clase responsable de la partida en juego.
  */
 class Game {
  private:
+  Player player;
   float scale = 1.2f;
   float offsetX = 30.0f;
   float offsetY = 120.0f;

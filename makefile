@@ -1,47 +1,3 @@
-# #variables
-# XC=g++
-# STD=-std=c++20
-# WFLAGS=-Wall -Wextra
-# APPNAME=program
-
-# #directorios
-# SRC=src
-# BUILD=build
-# BIN=bin
-
-# #archivos
-# DIRS=$(shell find -L $(SRC) -type d)
-# FSOURCE=$(wildcard $(DIRS:%=%/*.cpp))
-# FHEADER=$(wildcard $(DIRS:%=%/*.hpp))
-# FOBJECT=$(FSOURCE:$(SRC)/%.cpp=$(BUILD)/%.o)
-
-# .PHONY: all bin show
-
-# all: $(BIN)/$(APPNAME)
-
-# $(BIN)/$(APPNAME): $(FOBJECT) | $(BIN)
-# 	$(XC) $(STD) $(WFLAGS) -g $^ -o $@
-
-# $(BUILD)/%.o: $(SRC)/%.cpp | $(BUILD)
-# 	$(XC) $(STD) $(WFLAGS) -c -g $^ -o $@
-
-# $(BIN):
-# 	mkdir -p $@
-
-# $(BUILD):
-# 	mkdir -p $@
-
-# run:
-# 	./$(BIN)/$(APPNAME)
-
-# clean:
-# 	rm -rf $(BIN) $(BUILD)
-
-# show:
-# 	echo $(FOBJECT)
-
-# make upload-arduino; make run
-
 # Compilador y Flags
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17 -I./include -no-pie
@@ -49,35 +5,22 @@ LDFLAGS = -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -no-pie
 TESTFLAGS = -lgtest -lgtest_main -pthread -no-pie
 CPPLINT_FLAGS = --filter=-build/include_subdir,-readability/casting,-runtime/references
 
-# Ensamblador
-AS = nasm
-ASFLAGS = -f elf64
-
 # Directorios
 SRC_DIR = src
 BUILD_DIR = build
 BIN_DIR = bin
 INCLUDE_DIR = include
-TEST_DIR = tests
 
 # Archivos fuente
 CPP_SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
-ASM_SOURCES = $(wildcard $(SRC_DIR)/*.asm)
-TEST_SOURCES = $(wildcard $(TEST_DIR)/*.cpp)
 
 # Archivos objeto
 CPP_OBJECTS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(CPP_SOURCES))
-ASM_OBJECTS = $(patsubst $(SRC_DIR)/%.asm, $(BUILD_DIR)/%.o, $(ASM_SOURCES))
-TEST_OBJECTS = $(patsubst $(TEST_DIR)/%.cpp, $(BUILD_DIR)/test_%.o, $(TEST_SOURCES))
-
-# Objetos sin main.o para tests (hecho con Claude)
-CPP_OBJECTS_NO_MAIN = $(filter-out $(BUILD_DIR)/main.o, $(CPP_OBJECTS))
 
 OBJECTS = $(CPP_OBJECTS) $(ASM_OBJECTS)
 
 # Ejecutables
 TARGET = $(BIN_DIR)/program
-TEST_TARGET = $(BIN_DIR)/test_runner
 
 # Target principal
 all: $(TARGET)
@@ -91,45 +34,18 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Compilar ensamblador
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.asm
-	@mkdir -p $(BUILD_DIR)
-	$(AS) $(ASFLAGS) $< -o $@
-
 # Compilar tests
 $(BUILD_DIR)/test_%.o: $(TEST_DIR)/%.cpp
 	@mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Build tests
-$(TEST_TARGET): $(ASM_OBJECTS) $(TEST_OBJECTS)
-	@mkdir -p $(BIN_DIR)
-	$(CXX) $(ASM_OBJECTS) $(TEST_OBJECTS) -o $(TEST_TARGET) $(TESTFLAGS) $(LDFLAGS)
-
-# Arduino (Le pedí ayuda a Claude con esto)
-ARDUINO_INO = joystick_control
-ARDUINO_PORT = /dev/ttyACM0
-ARDUINO_BOARD = arduino:avr:uno
-
 # Correr programa
 run: $(TARGET)
 	./$(TARGET)
 
-# Correr tests
-test: $(TEST_TARGET)
-	./$(TEST_TARGET)
-
-upload-arduino:
-	arduino-cli compile --fqbn $(ARDUINO_BOARD) $(ARDUINO_INO)
-	arduino-cli upload -p $(ARDUINO_PORT) --fqbn $(ARDUINO_BOARD) $(ARDUINO_INO)
-
 # Clean todo
 clean:
 	rm -rf $(BUILD_DIR)/*.o $(BIN_DIR)/program $(BIN_DIR)/test_runner
-
-# Clean solo tests
-clean-tests:
-	rm -rf $(BUILD_DIR)/test_*.o $(BIN_DIR)/test_runner
 
 # Pasarle cpplint a los archivos cpp
 lint-src:
@@ -139,4 +55,4 @@ lint-src:
 lint-include:
 	cpplint $(CPPLINT_FLAGS) $(INCLUDE_DIR)/*.h
 
-.PHONY: all clean run upload-arduino test clean-tests lint-include lint-src
+.PHONY: all clean run lint-include lint-src
