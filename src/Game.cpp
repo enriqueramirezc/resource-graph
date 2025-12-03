@@ -23,9 +23,7 @@ void Game::updateElements(Graph& graph) {
       int edgeWeight = graph.getEdgeWeight(currentNode, i);
       
       if (player.getBattery() >= edgeWeight) {
-        player.consumeBattery(edgeWeight);
-        player.setCurrentNode(i);
-        player.setPlayerPosition(x, y);
+        player.updatePlayer(edgeWeight, i, x, y);
       }
       break;
     }

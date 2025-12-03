@@ -24,8 +24,10 @@ class Player {
     this->y = py;
   }
 
-  void updatePlayer() {
-
+  void updatePlayer(int edgeWeight, int i, int x, int y) {
+    consumeBattery(edgeWeight);
+    setCurrentNode(i);
+    setPlayerPosition(x, y);
   }
 
   void drawPlayer();
