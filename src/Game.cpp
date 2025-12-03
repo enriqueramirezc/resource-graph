@@ -1,7 +1,35 @@
 // Copyright [2025] Enrique Ramírez
 #include "Game.hpp"
-
-void Game::updateElements() {
+#include <math.h>
+void Game::updateElements(Graph& graph) {
+  if (!IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) return;
+  
+  Vector2 mousePos = GetMousePosition();
+  int currentNode = player.getCurrentNode();
+  
+  // Revisar cada nodo del grafo
+  for (int i = 0; i < graph.getNodeCount(); i++) {
+    if (i == currentNode) continue;
+    
+    Node node = graph.getNode(i);
+    float x = node.getX() * scale + offsetX;
+    float y = node.getY() * scale + offsetY;
+    float radius = 15.0f;
+    
+    // Verificar click en el nodo
+    float dist = sqrt(pow(mousePos.x - x, 2) + pow(mousePos.y - y, 2));
+    if (dist <= radius && graph.isAdjacent(currentNode, i)) {
+      // Obtener peso de la arista
+      int edgeWeight = graph.getEdgeWeight(currentNode, i);
+      
+      if (player.getBattery() >= edgeWeight) {
+        player.consumeBattery(edgeWeight);
+        player.setCurrentNode(i);
+        player.setPlayerPosition(x, y);
+      }
+      break;
+    }
+  }
 }
 
 void Game::initializeGame(const Graph& graph) {
@@ -25,7 +53,8 @@ void Game::drawGameElements(Graph& graph) {
   DrawText(TextFormat("Bateria: %d%%", player.getBattery()), 
     10, 10, 25, WHITE);
 
-  if (interactable) updateElements();
+  if (interactable) 
+  updateElements(graph);
 }
 
 // Pausar juego

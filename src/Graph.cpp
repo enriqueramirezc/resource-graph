@@ -15,6 +15,11 @@ void Graph::addEdge(int origin, int destination, int weight) {
     adjList.resize(origin + 1);
   }
   adjList[origin].push_back(Edge(destination, weight));
+
+  if (destination >= adjList.size()) {
+    adjList.resize(destination + 1);
+  }
+  adjList[destination].push_back(Edge(origin, weight));
 }
 
 // Poner nodos en el área de juego

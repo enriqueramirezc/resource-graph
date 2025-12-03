@@ -17,7 +17,7 @@ class Game {
   // Indicador de si un elemento es interactuable
   std::uint8_t interactable;
 
-  void updateElements();
+  void updateElements(Graph& graph);
 
  public:
   /**
@@ -25,8 +25,7 @@ class Game {
    * carga sus texturas y posiciones.
    */
   void initializeGame(const Graph& graph);
-  void initializePlayer(const Graph& graph);
-  void drawPlayer();
+
   /**
    * @brief Rederiza los elementos de la partida en pantalla.
    */
@@ -55,8 +54,4 @@ class Game {
    * @brief Restablece el progreso de la partida.
    */
   void resetMatch();
-
-  // void drawNodes(const Graph& graph);
-
-  // void drawEdges(const Graph& graph);
 };
