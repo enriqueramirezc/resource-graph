@@ -51,6 +51,11 @@ class Game {
   void isGamePaused(byte& paused);
 
   /**
+   * @brief Verifica si el jugador ha perdido.
+   */
+  void checkDefeat(byte& defeated);
+
+  /**
    * @brief Restablece el progreso de la partida.
    */
   void resetMatch(Graph& graph);

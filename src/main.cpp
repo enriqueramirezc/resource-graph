@@ -6,6 +6,7 @@
 #include "Window.hpp"
 #include "Home.hpp"
 #include "Graph.hpp"
+#include "Defeat.hpp"
 #include "Game.hpp"
 #include "Pause.hpp"
 #include "SoundManager.hpp"
@@ -74,6 +75,7 @@ int main() {
   Game game;
   SoundManager soundManager;
   Pause pause;
+  Defeat defeat;
 
   // Grafo que representa el planeta
   Graph graph;
@@ -86,6 +88,7 @@ int main() {
   std::uint8_t paused = 0;
   std::uint8_t inHome = 1;
   std::uint8_t playing = 0;
+  std::uint8_t defeated = 0;
 
   // Inicializar ventana de juego
   window.initializeWindow();
@@ -98,32 +101,48 @@ int main() {
 
   pause.initializePauseMenu();
 
+  defeat.initializeDefeatMenu();
+
   // Inicializar sonidos
   soundManager.initializeSounds();
-
   // Ciclo de juego
   while (!WindowShouldClose()) {
-  window.beginWindowDraw();
-  if (inHome) {
-    homeScreen.drawHomeScreen();
-    homeScreen.hasGameStarted(playing, &soundManager);
-    game.resetMatch(graph);
-    inHome = !(playing);
-  } else if (playing) {  // partida
-    game.setInteractable();
-    game.drawGameElements(graph);
-    game.isGamePaused(paused);
-    playing = !(paused);
-    if (!playing) game.setNotInteractable();
-  } else if (paused) {
-    pause.drawPauseMenu();
-    pause.gameResumed(playing, &soundManager);
-    pause.goHome(inHome, &soundManager);
-    paused = !(playing);
-    if (paused) paused = !(inHome);
+    window.beginWindowDraw();
+    if (inHome) {
+      homeScreen.drawHomeScreen();
+      homeScreen.hasGameStarted(playing, &soundManager);
+      game.resetMatch(graph);
+      inHome = !(playing);
+    } else if (playing) {  // partida
+      game.setInteractable();
+      game.drawGameElements(graph);
+      game.isGamePaused(paused);
+      game.checkDefeat(defeated);
+      playing = !(paused) && !(defeated);
+      if (!playing) game.setNotInteractable();
+    } else if (paused) {
+      pause.drawPauseMenu();
+      pause.gameResumed(playing, &soundManager);
+      pause.goHome(inHome, &soundManager);
+      paused = !(playing);
+      if (paused) paused = !(inHome);
+    } else if (defeated) {
+      defeat.drawDefeatMenu();
+      std::uint8_t restart = 0;
+      defeat.gameResumed(restart, &soundManager);
+      defeat.goHome(inHome, &soundManager);
+      if (restart) {
+        game.resetMatch(graph);
+        defeated = 0;
+        playing = 1;
+      }
+      if (inHome) {
+        game.resetMatch(graph);
+        defeated = 0;
+      }
+    }
+    window.endWindowDraw();
   }
-  window.endWindowDraw();
-}
   soundManager.unloadSounds();
   window.killWindow();  // Cierra la ventana
 

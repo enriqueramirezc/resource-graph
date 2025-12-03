@@ -28,6 +28,11 @@ void Game::updateElements(Graph& graph) {
       break;
     }
   }
+
+  // if (player.getBattery() <= 0) {
+  //   defeat.drawDefeatMenu();
+  //   resetMatch(graph);
+  // }
 }
 
 void Game::initializeGame(Graph& graph) {
@@ -46,6 +51,7 @@ void Game::drawGameElements(Graph& graph) {
   DrawText(TextFormat("Bateria: %d%%", player.getBattery()), 
     10, 10, 25, WHITE);
 
+  
   if (interactable) 
   updateElements(graph);
 }
@@ -64,4 +70,10 @@ void Game::resetMatch(Graph& graph) {
   float y = startNode.getY() * scale + offsetY;
   player.setPlayerPosition(x, y);
   player.rechargeBattery();
+}
+
+void Game::checkDefeat(byte& defeated) {
+  if (player.getBattery() <= 0 && player.getCurrentNode() != 0) {
+    defeated = 1;
+  }
 }
