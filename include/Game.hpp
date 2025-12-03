@@ -24,7 +24,7 @@ class Game {
    * @brief Inicializa los elementos de la clase,
    * carga sus texturas y posiciones.
    */
-  void initializeGame(const Graph& graph);
+  void initializeGame(Graph& graph);
 
   /**
    * @brief Rederiza los elementos de la partida en pantalla.
@@ -53,5 +53,5 @@ class Game {
   /**
    * @brief Restablece el progreso de la partida.
    */
-  void resetMatch();
+  void resetMatch(Graph& graph);
 };

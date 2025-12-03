@@ -32,14 +32,9 @@ void Game::updateElements(Graph& graph) {
   }
 }
 
-void Game::initializeGame(const Graph& graph) {
+void Game::initializeGame(Graph& graph) {
   player.initializePlayer();
-  player.setCurrentNode(graph.getStartNode());
-
-  Node startNode = graph.getNode(graph.getStartNode());
-  float x = startNode.getX() * scale + offsetX;
-  float y = startNode.getY() * scale + offsetY;
-  player.setPlayerPosition(x, y);
+  resetMatch(graph);
   // Dice que la escena es interactuable
   this->interactable = 0;
 }
@@ -63,5 +58,12 @@ void Game::isGamePaused(byte& paused) {
   if (IsKeyDown(KEY_SPACE)) paused = 1;
 }
 
-void Game::resetMatch() {
+void Game::resetMatch(Graph& graph) {
+  player.setCurrentNode(graph.getStartNode());
+
+  Node startNode = graph.getNode(graph.getStartNode());
+  float x = startNode.getX() * scale + offsetX;
+  float y = startNode.getY() * scale + offsetY;
+  player.setPlayerPosition(x, y);
+  player.rechargeBattery();
 }

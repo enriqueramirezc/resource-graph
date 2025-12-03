@@ -24,11 +24,11 @@ class Player {
     this->y = py;
   }
 
-  void drawPlayer() {
-    float scale = 0.05f;
-    DrawTextureEx(playerTexture, (Vector2){x - playerTexture.width * scale / 2, 
-      y - playerTexture.height * scale / 2}, 0.0f, scale, WHITE);
+  void updatePlayer() {
+
   }
+
+  void drawPlayer();
 
   void setCurrentNode(int nodeId) {
     currentNode = nodeId;

@@ -107,6 +107,7 @@ int main() {
   if (inHome) {
     homeScreen.drawHomeScreen();
     homeScreen.hasGameStarted(playing, &soundManager);
+    game.resetMatch(graph);
     inHome = !(playing);
   } else if (playing) {  // partida
     game.setInteractable();
