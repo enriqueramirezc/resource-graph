@@ -4,13 +4,27 @@
 void Game::updateElements() {
 }
 
-void Game::initializeGame() {
+void Game::initializeGame(const Graph& graph) {
+  player.initializePlayer();
+  player.setCurrentNode(graph.getStartNode());
+
+  Node startNode = graph.getNode(graph.getStartNode());
+  float x = startNode.getX() * scale + offsetX;
+  float y = startNode.getY() * scale + offsetY;
+  player.setPlayerPosition(x, y);
   // Dice que la escena es interactuable
   this->interactable = 0;
 }
 
-void Game::drawGameElements() {
+void Game::drawGameElements(const Graph& graph) {
   ClearBackground(BLACK);
+  drawEdges(graph);
+  drawNodes(graph);
+  player.drawPlayer();
+  // Mostrar batería
+  DrawText(TextFormat("Bateria: %d%%", player.getBattery()), 
+    10, 10, 25, WHITE);
+
   if (interactable) updateElements();
 }
 

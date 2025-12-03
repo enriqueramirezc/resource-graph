@@ -24,12 +24,13 @@ class Game {
    * @brief Inicializa los elementos de la clase,
    * carga sus texturas y posiciones.
    */
-  void initializeGame();
-
+  void initializeGame(const Graph& graph);
+  void initializePlayer(const Graph& graph);
+  void drawPlayer();
   /**
    * @brief Rederiza los elementos de la partida en pantalla.
    */
-  void drawGameElements();
+  void drawGameElements(const Graph& graph);
 
   /**
    * @brief Cambia el estado del juego,

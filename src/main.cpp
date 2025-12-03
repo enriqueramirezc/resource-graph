@@ -94,7 +94,7 @@ int main() {
   homeScreen.initializeHomeScreen();
 
   // Inicializar partida
-  game.initializeGame();
+  game.initializeGame(graph);
 
   pause.initializePauseMenu();
 
@@ -110,14 +110,11 @@ int main() {
     inHome = !(playing);
   } else if (playing) {  // partida
     game.setInteractable();
-    game.drawEdges(graph);
-    game.drawNodes(graph);
-    game.drawGameElements();
+    game.drawGameElements(graph);
     game.isGamePaused(paused);
     playing = !(paused);
     if (!playing) game.setNotInteractable();
   } else if (paused) {
-    game.drawGameElements();
     pause.drawPauseMenu();
     pause.gameResumed(playing, &soundManager);
     pause.goHome(inHome, &soundManager);

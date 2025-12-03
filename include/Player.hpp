@@ -2,41 +2,40 @@
 #define PLAYER_HPP
 
 #include "raylib.h"
-#include "Graph.hpp"
 
 class Player {
  private:
+  const char* player_path = "assets/img/player.jpg";
   int currentNode;
-  Texture2D texture;
+  Texture2D playerTexture;
   float x, y;
   int battery;
 
  public:
-  Player() : currentNode(0), battery(100) {}
+  Player() : currentNode(0), battery(100), x(0), y(0) {}
 
-  void initialize(const char* texturePath, int startNode) {
-    this->texture = LoadTexture(texturePath);
-    this->currentNode = startNode;
+  void initializePlayer() {
+    this->playerTexture = LoadTexture(player_path);
     this->battery = 100;
   }
 
-  void setPosition(float px, float py) {
+  void setPlayerPosition(float px, float py) {
     this->x = px;
     this->y = py;
   }
 
-  void draw() {
-    float scale = 0.5f;
-    DrawTextureEx(texture, (Vector2){x - texture.width * scale / 2, 
-      y - texture.height * scale / 2}, 0.0f, scale, WHITE);
+  void drawPlayer() {
+    float scale = 0.05f;
+    DrawTextureEx(playerTexture, (Vector2){x - playerTexture.width * scale / 2, 
+      y - playerTexture.height * scale / 2}, 0.0f, scale, WHITE);
+  }
+
+  void setCurrentNode(int nodeId) {
+    currentNode = nodeId;
   }
 
   int getCurrentNode() const {
     return currentNode;
-  }
-
-  void moveToNode(int nodeId) {
-    currentNode = nodeId;
   }
 
   int getBattery() const {
@@ -53,7 +52,7 @@ class Player {
   }
 
   void unload() {
-    UnloadTexture(texture);
+    UnloadTexture(playerTexture);
   }
 };
 
