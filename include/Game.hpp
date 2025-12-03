@@ -30,7 +30,7 @@ class Game {
   /**
    * @brief Rederiza los elementos de la partida en pantalla.
    */
-  void drawGameElements(const Graph& graph);
+  void drawGameElements(Graph& graph);
 
   /**
    * @brief Cambia el estado del juego,
@@ -56,7 +56,7 @@ class Game {
    */
   void resetMatch();
 
-  void drawNodes(const Graph& graph);
+  // void drawNodes(const Graph& graph);
 
-  void drawEdges(const Graph& graph);
+  // void drawEdges(const Graph& graph);
 };

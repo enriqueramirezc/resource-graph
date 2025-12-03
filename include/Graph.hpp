@@ -15,6 +15,11 @@ class Graph {
   std::vector<std::vector<Edge>> adjList;  // Lista de ady. (porque es disperso)
   int startNode;  // Nodo de inicio
 
+
+    float scale = 1.2f;
+  float offsetX = 30.0f;
+  float offsetY = 120.0f;
+
  public:
   Graph() : startNode(-1) {}  // Se inicializa en -1 el punto de inicio
 
@@ -57,5 +62,11 @@ class Graph {
   const std::vector<std::vector<Edge>>& getAdjList() const {
     return adjList;
   }
+
+  void drawEdges();
+
+  void drawNodes();
+
+
 };  // class Graph
 #endif  // GRAPH_HPP
