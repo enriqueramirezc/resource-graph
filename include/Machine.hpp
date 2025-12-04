@@ -24,8 +24,8 @@ class Machine {
 
  public:
   Machine(int nodeId, MachineType t, int resValue)
-    : resourceNodeId(nodeId), type(t), resourceValue(resValue)
-    , maintenanceCost(0), netProfit(0) {
+    : resourceNodeId(nodeId), type(t), maintenanceCost(0)
+    , resourceValue(resValue), netProfit(0) {
     switch(type) {
       case BFS:
       case DFS:

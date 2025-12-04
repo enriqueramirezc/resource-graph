@@ -16,12 +16,12 @@ void Graph::addNode(const Node& node) {
 
 // Agregar arista a la lista de adyacencia
 void Graph::addEdge(int origin, int destination, int weight) {
-  if (origin >= adjList.size()) {
+  if (origin >= static_cast<int>(adjList.size())) {
     adjList.resize(origin + 1);
   }
   adjList[origin].push_back(Edge(destination, weight));
 
-  if (destination >= adjList.size()) {
+  if (destination >= static_cast<int>(adjList.size())) {
     adjList.resize(destination + 1);
   }
   adjList[destination].push_back(Edge(origin, weight));
@@ -29,7 +29,7 @@ void Graph::addEdge(int origin, int destination, int weight) {
 
 // Poner nodos en el área de juego
 void Graph::drawNodes() {
-  for (int i = 0; i < nodes.size(); i++) {
+  for (int i = 0; i < static_cast<int>(nodes.size()); i++) {
     Node node = nodes[i];
     Color color;
     float radius;
@@ -63,12 +63,12 @@ void Graph::drawNodes() {
 // Dibujar aristas y sus pesos
 void Graph::drawEdges() {
   // Dibujar las aristas
-  for (int i = 0; i < adjList.size(); i++) {
+  for (int i = 0; i < static_cast<int>(adjList.size()); i++) {
     Node origin = nodes[i];
     float x1 = origin.getX() * scale + offsetX;
     float y1 = origin.getY() * scale + offsetY;
 
-    for (int j = 0; j < adjList[i].size(); j++) {
+    for (int j = 0; j < static_cast<int>(adjList[i].size()); j++) {
       Edge edge = adjList[i][j];
       Node dest = nodes[edge.getDestination()];
       float x2 = dest.getX() * scale + offsetX;
@@ -203,12 +203,12 @@ std::vector<int> Graph::dijkstra(int start, int end) {
 
   dist[start] = 0;
 
-  for (int i = 0; i < nodes.size(); i++) {
+  for (int i = 0; i < static_cast<int>(nodes.size()); i++) {
     // Encontrar nodo no visitado con menor distancia
     int minDist = std::numeric_limits<int>::max();
     int u = -1;
 
-    for (int j = 0; j < nodes.size(); j++) {
+    for (int j = 0; j < static_cast<int>(nodes.size()); j++) {
       if (!visited[j] && dist[j] < minDist) {
         minDist = dist[j];
         u = j;

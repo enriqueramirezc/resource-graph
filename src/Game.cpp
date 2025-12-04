@@ -7,7 +7,7 @@ void Game::updateElements(Graph& graph) {
   Vector2 mousePos = GetMousePosition();
   int currentNode = player.getCurrentNode();
   
-  if (currentNode < exploredNodes.size()) {
+  if (currentNode < static_cast<int>(exploredNodes.size())) {
     exploredNodes[currentNode] = true;
   }
 

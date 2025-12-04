@@ -67,7 +67,7 @@ class Graph {
   void drawNodes();
 
   bool isAdjacent(int nodeA, int nodeB) const {
-    if (nodeA >= adjList.size()) {
+    if (nodeA >= static_cast<int>(adjList.size())) {
       return false;
     }
     for (const Edge& edge : adjList[nodeA]) {
@@ -77,7 +77,7 @@ class Graph {
   }
 
   int getEdgeWeight(int origin, int destination) const {
-    if (origin >= adjList.size()) return -1;
+    if (origin >= static_cast<int>(adjList.size())) return -1;
     for (const Edge& edge : adjList[origin]) {
       if (edge.getDestination() == destination) 
         return edge.getWeight();

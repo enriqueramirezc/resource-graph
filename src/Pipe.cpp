@@ -2,11 +2,11 @@
 #include "raylib.h"
 
 void Pipe::drawPipelines(Graph& graph) {
-  for (int m = 0; m < machines.size(); m++) {
+  for (int m = 0; m < static_cast<int>(machines.size()); m++) {
     std::vector<int> path = machines[m].getPath();
     Color color = machines[m].getPipeColor();
 
-    for (int i = 0; i < path.size() - 1; i++) {
+    for (int i = 0; i < static_cast<int>(path.size()) - 1; i++) {
       Node n1 = graph.getNode(path[i]);
       Node n2 = graph.getNode(path[i + 1]);
 
@@ -22,7 +22,7 @@ void Pipe::drawPipelines(Graph& graph) {
 
 void Pipe::buildMachine(int nodeId, MachineType type, Graph& graph, int& playerRes) {
   // Buscar si ya hay máquina en este nodo
-  for (int i = 0; i < machines.size(); i++) {
+  for (int i = 0; i < static_cast<int>(machines.size()); i++) {
     if (machines[i].getResourceNode() == nodeId) {
       int refund = 0;
       if (machines[i].getType() == BFS || machines[i].getType() == DFS) {
@@ -74,7 +74,7 @@ void Pipe::updateResourceGen(int& playerRes) {
 
   if (frameCount >= 60) {
     frameCount = 0;
-    for (int i = 0; i < machines.size(); i++) {
+    for (int i = 0; i < static_cast<int>(machines.size()); i++) {
       playerRes += machines[i].getNetProfit();
       if (playerRes < 0) playerRes = 0;
     }
@@ -82,7 +82,7 @@ void Pipe::updateResourceGen(int& playerRes) {
 }
 
 bool Pipe::hasMachineAt(int nodeId) {
-  for (int i = 0; i < machines.size(); i++) {
+  for (int i = 0; i < static_cast<int>(machines.size()); i++) {
     if (machines[i].getResourceNode() == nodeId) {
       return true;
     }

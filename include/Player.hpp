@@ -12,9 +12,12 @@ class Player {
   int battery;
 
  public:
-  Player() : currentNode(0), battery(100), x(0), y(0) {}
 
   void initializePlayer() {
+    this->currentNode = 0;
+    this->x = 0;
+    this->y = 0;
+    this->battery = 100;
     this->playerTexture = LoadTexture(player_path);
     this->battery = 100;
   }
