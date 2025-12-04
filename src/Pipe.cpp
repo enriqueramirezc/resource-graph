@@ -68,21 +68,20 @@ void Pipe::buildMachine(int nodeId, MachineType type, Graph& graph
   newMachine.setMaintenanceCost(maintenanceCost);
   newMachine.calcProfit();
 
+
+  playerRes += newMachine.getNetProfit();
   machines.push_back(newMachine);
 }
 
-void Pipe::updateResourceGen(int& playerRes) {
-  static int frameCount = 0;
-  frameCount++;
+// void Pipe::updateResourceGen(int& playerRes) {
 
-  if (frameCount >= 60) {
-    frameCount = 0;
-    for (int i = 0; i < static_cast<int>(machines.size()); i++) {
-      playerRes += machines[i].getNetProfit();
-      if (playerRes < 0) playerRes = 0;
-    }
-  }
-}
+//   // // if (frameCount >= 60) {
+//   // //   frameCount = 0;
+//   //   for (int i = 0; i < static_cast<int>(machines.size()); i++) {
+//   //     if (playerRes < 0) playerRes = 0;
+//   //   }
+//   // // }
+// }
 
 bool Pipe::hasMachineAt(int nodeId) {
   for (int i = 0; i < static_cast<int>(machines.size()); i++) {

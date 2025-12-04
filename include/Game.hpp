@@ -22,7 +22,7 @@ class Game {
 
   int plyResources;
   std::vector<bool> exploredNodes;
-  int engineCost = 3000;
+  int engineCost = 1200;
 
   int selectedResourceNode = -1;
 

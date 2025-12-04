@@ -197,34 +197,37 @@ std::vector<int> Graph::greedy(int start, int end) {
 
 // Camino de costo mínimo
 std::vector<int> Graph::dijkstra(int start, int end) {
-  std::vector<int> dist(nodes.size(), std::numeric_limits<int>::max());
-  std::vector<int> parent(nodes.size(), -1);
-  std::vector<bool> visited(nodes.size(), false);
+  int N = adjList.size();
+
+  std::vector<int> dist(N, std::numeric_limits<int>::max());
+  std::vector<int> parent(N, -1);
+  std::vector<bool> visited(N, false);
 
   dist[start] = 0;
 
-  for (int i = 0; i < static_cast<int>(nodes.size()); i++) {
-    // Encontrar nodo no visitado con menor distancia
-    int minDist = std::numeric_limits<int>::max();
+  for (int i = 0; i < N; i++) {
+    // Encontrar el nodo no visitado con menor distancia
     int u = -1;
+    int minDist = std::numeric_limits<int>::max();
 
-    for (int j = 0; j < static_cast<int>(nodes.size()); j++) {
+    for (int j = 0; j < N; j++) {
       if (!visited[j] && dist[j] < minDist) {
         minDist = dist[j];
         u = j;
       }
     }
 
-    if (u == -1) break;
+    if (u == -1)
+      break;
+
     visited[u] = true;
 
-    // Actualizar distancias de vecinos
     for (const Edge& edge : adjList[u]) {
       int v = edge.getDestination();
-      int weight = edge.getWeight();
+      int w = edge.getWeight();
 
-      if (!visited[v] && dist[u] + weight < dist[v]) {
-        dist[v] = dist[u] + weight;
+      if (!visited[v] && dist[u] + w < dist[v]) {
+        dist[v] = dist[u] + w;
         parent[v] = u;
       }
     }
@@ -234,7 +237,7 @@ std::vector<int> Graph::dijkstra(int start, int end) {
   std::vector<int> path;
   if (dist[end] != std::numeric_limits<int>::max()) {
     for (int v = end; v != -1; v = parent[v]) {
-      path.push_back(v);
+        path.push_back(v);
     }
     std::reverse(path.begin(), path.end());
   }

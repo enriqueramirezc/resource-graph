@@ -106,8 +106,7 @@ void Game::drawGameElements(Graph& graph) {
   }
 
   if (interactable) {
-    updateElements(graph);
-    pipe.updateResourceGen(plyResources);
+    updateElements(graph);    
   }
 }
 
