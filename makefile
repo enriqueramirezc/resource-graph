@@ -53,6 +53,6 @@ lint-src:
 
 # Pasarle cpplint a los archivos h
 lint-include:
-	cpplint $(CPPLINT_FLAGS) $(INCLUDE_DIR)/*.h
+	cpplint $(CPPLINT_FLAGS) $(INCLUDE_DIR)/*.hpp
 
 .PHONY: all clean run lint-include lint-src

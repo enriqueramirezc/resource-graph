@@ -13,6 +13,7 @@ class Node {
   int value;  // Valor del nodo
   int x;  // Coordenada del nodo en el eje x
   int y;  // Coordenada del nodo en el eje y
+
  public:
   // Constructor
   Node(int id, int type, int value, int x, int y) 

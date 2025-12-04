@@ -3,26 +3,26 @@
 #include <math.h>
 void Game::updateElements(Graph& graph) {
   if (!IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) return;
-  
+
   Vector2 mousePos = GetMousePosition();
   int currentNode = player.getCurrentNode();
-  
+
   if (currentNode < static_cast<int>(exploredNodes.size())) {
     exploredNodes[currentNode] = true;
   }
 
   for (int i = 0; i < graph.getNodeCount(); i++) {
     if (i == currentNode) continue;
-    
+
     Node node = graph.getNode(i);
     float x = node.getX() * scale + offsetX;
     float y = node.getY() * scale + offsetY;
     float radius = 22.0f;
-    
+
     float dist = sqrt(pow(mousePos.x - x, 2) + pow(mousePos.y - y, 2));
     if (dist <= radius && graph.isAdjacent(currentNode, i)) {
       int edgeWeight = graph.getEdgeWeight(currentNode, i);
-      
+
       player.updatePlayer(edgeWeight, i, x, y);
       if (player.getBattery() >= edgeWeight) {
         exploredNodes[i] = true;
@@ -59,7 +59,7 @@ void Game::drawGameElements(Graph& graph) {
   DrawText(TextFormat("Motor: %d", engineCost), 10, 70, 25, BLUE);
   DrawText(TextFormat("Maquinas: %d", pipe.getMachineCount()), 10, 100, 25
   , WHITE);
-  
+
   if (interactable) {
     updateElements(graph);
     pipe.updateResourceGen(plyResources);

@@ -1,3 +1,4 @@
+// Copyright [2025] Enrique Ramírez
 #ifndef MACHINE_HPP
 #define MACHINE_HPP
 

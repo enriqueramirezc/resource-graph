@@ -1,3 +1,4 @@
+// Copyright [2025] Enrique Ramírez
 #ifndef PIPE_HPP
 #define PIPE_HPP
 
@@ -21,9 +22,13 @@ class Pipe {
   int dijkstraCost = 500;
 
   void drawPipelines(Graph& graph);
+
   void buildMachine(int nodeId, MachineType type, Graph& graph, int& playerRes);
+
   void updateResourceGen(int& playerRes);
+
   bool hasMachineAt(int nodeId);
+
   int getMachineCount() {
     return machines.size();
   }

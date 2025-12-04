@@ -14,7 +14,7 @@ class Game {
  private:
   Player player;
   Pipe pipe;
-  
+
   float scale = 1.2f;
   float offsetX = 30.0f;
   float offsetY = 120.0f;

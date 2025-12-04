@@ -1,3 +1,4 @@
+// Copyright [2025] Enrique Ramírez
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
@@ -12,7 +13,6 @@ class Player {
   int battery;
 
  public:
-
   void initializePlayer() {
     this->currentNode = 0;
     this->x = 0;

@@ -1,3 +1,4 @@
+// Copyright [2025] Enrique Ramírez
 #include "Pipe.hpp"
 #include "raylib.h"
 
@@ -20,7 +21,8 @@ void Pipe::drawPipelines(Graph& graph) {
   }
 }
 
-void Pipe::buildMachine(int nodeId, MachineType type, Graph& graph, int& playerRes) {
+void Pipe::buildMachine(int nodeId, MachineType type, Graph& graph
+  , int& playerRes) {
   // Buscar si ya hay máquina en este nodo
   for (int i = 0; i < static_cast<int>(machines.size()); i++) {
     if (machines[i].getResourceNode() == nodeId) {
@@ -52,7 +54,8 @@ void Pipe::buildMachine(int nodeId, MachineType type, Graph& graph, int& playerR
   if (type == BFS) path = graph.bfs(nodeId, graph.getStartNode());
   else if (type == DFS) path = graph.dfs(nodeId, graph.getStartNode());
   else if (type == GREEDY) path = graph.greedy(nodeId, graph.getStartNode());
-  else if (type == DIJKSTRA) path = graph.dijkstra(nodeId, graph.getStartNode());
+  else if (type == DIJKSTRA) path = graph.dijkstra(nodeId
+    , graph.getStartNode());
 
   if (path.size() == 0) return;
 

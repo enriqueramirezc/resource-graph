@@ -29,9 +29,8 @@ void Home::drawHomeScreen() {
   const char* perdidosTitle = "LOST";
   int perdidosTitleWidth = MeasureText(perdidosTitle, 200);
   DrawText(perdidosTitle, (WINDOW_WIDTH / 2) - (perdidosTitleWidth / 2)
-  , (WINDOW_HEIGHT / 2) - 450, 200
-    , GREEN);
-  
+  , (WINDOW_HEIGHT / 2) - 450, 200, GREEN);
+
   // Alien dentro de la letra "O"
   float logoScale = 0.11f;
   float logoX = (WINDOW_WIDTH / 2 - (logo.width * logoScale) / 2) - 90;

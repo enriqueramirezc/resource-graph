@@ -57,7 +57,7 @@ class Graph {
   const Node& getNode(int id) const {
     return nodes[id];
   }
-  
+
   const std::vector<std::vector<Edge>>& getAdjList() const {
     return adjList;
   }
@@ -79,7 +79,7 @@ class Graph {
   int getEdgeWeight(int origin, int destination) const {
     if (origin >= static_cast<int>(adjList.size())) return -1;
     for (const Edge& edge : adjList[origin]) {
-      if (edge.getDestination() == destination) 
+      if (edge.getDestination() == destination)
         return edge.getWeight();
     }
     return -1;

@@ -149,7 +149,7 @@ std::vector<int> Graph::dfs(int start, int end) {
       }
     }
   }
-  
+
   // Reconstruir camino
   std::vector<int> path;
   if (parent[end] != -1 || start == end) {
@@ -173,7 +173,7 @@ std::vector<int> Graph::greedy(int start, int end) {
   while (current != end) {
     int bestNeighbor = -1;
     int minWeight = std::numeric_limits<int>::max();
-    
+
     for (const Edge& edge : adjList[current]) {
       int neighbor = edge.getDestination();
       if (!visited[neighbor] && edge.getWeight() < minWeight) {
@@ -191,7 +191,7 @@ std::vector<int> Graph::greedy(int start, int end) {
     visited[current] = true;
     path.push_back(current);
   }
-  
+
   return path;
 }
 
@@ -229,7 +229,7 @@ std::vector<int> Graph::dijkstra(int start, int end) {
       }
     }
   }
-  
+
   // Reconstruir camino
   std::vector<int> path;
   if (dist[end] != std::numeric_limits<int>::max()) {
