@@ -14,7 +14,7 @@ void Game::updateElements(Graph& graph) {
     Node node = graph.getNode(i);
     float x = node.getX() * scale + offsetX;
     float y = node.getY() * scale + offsetY;
-    float radius = 15.0f;
+    float radius = 22.0f;
     
     // Verificar click en el nodo
     float dist = sqrt(pow(mousePos.x - x, 2) + pow(mousePos.y - y, 2));

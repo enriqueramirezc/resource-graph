@@ -33,5 +33,9 @@ class Node {
   int getId() const {
     return id;
   }
+
+    int getValue() const {
+    return value;
+  }
 };  // class Node
 #endif  // NODE_HPP
