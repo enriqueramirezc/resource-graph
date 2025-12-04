@@ -31,13 +31,13 @@ void Graph::drawNodes() {
 
     if (node.getType() == 1) {  // Base
       color = BLUE;
-      radius = 15.0f;
+      radius = 22.0f;
     } else if (node.getType() == 2) {  // Recurso
       color = GREEN;
-      radius = 15.0f;
+      radius = 22.0f;
     } else {  // Vacío
       color = GRAY;
-      radius = 15.0f;
+      radius = 22.0f;
     }
 
     // Aplicar escala y offset

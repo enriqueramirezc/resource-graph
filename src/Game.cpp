@@ -28,11 +28,6 @@ void Game::updateElements(Graph& graph) {
       break;
     }
   }
-
-  // if (player.getBattery() <= 0) {
-  //   defeat.drawDefeatMenu();
-  //   resetMatch(graph);
-  // }
 }
 
 void Game::initializeGame(Graph& graph) {
