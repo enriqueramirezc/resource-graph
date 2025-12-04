@@ -15,8 +15,14 @@ class Home {
   // Ruta al fondo de la pantalla de inicio
   const char* bg_path = "assets/img/bg_space_800x600.png";
 
+  // Logo (gato alien)
+  const char* logo_path = "assets/img/alien.jpg";
+
   // Botón de "start" de la partida
   Button start_button;
+
+  // Textura del alien que aparece en el logo
+  Texture2D logo;
 
   // Textura de galaxia para el fondo del home screen
   Texture2D galaxy_background;
