@@ -27,9 +27,14 @@ void Game::updateElements(Graph& graph) {
       if (player.getBattery() >= edgeWeight) {
         exploredNodes[i] = true;
 
+        if (pipe.hasMachineAt(i)) {
+          player.rechargeAtMachine();
+        }
+
         if (node.getType() == 2 && !pipe.hasMachineAt(i)) {
           if (plyResources >= pipe.bfsCost) {
             pipe.buildMachine(i, BFS, graph, plyResources);
+            player.rechargeAtMachine();
           }
         }
       }

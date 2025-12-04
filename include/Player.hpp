@@ -59,6 +59,12 @@ class Player {
     battery = 100;
   }
 
+  void rechargeAtMachine() {
+    if (battery < 60) {
+      battery = 60;
+    }
+  }
+
   void unload() {
     UnloadTexture(playerTexture);
   }
