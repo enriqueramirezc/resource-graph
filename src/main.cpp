@@ -143,6 +143,7 @@ int main() {
     }
     window.endWindowDraw();
   }
+  homeScreen.unloadTextures();
   soundManager.unloadSounds();
   window.killWindow();  // Cierra la ventana
 

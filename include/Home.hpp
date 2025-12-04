@@ -42,4 +42,9 @@ class Home {
    * @brief Verifica si se dio click al botón de inicio
    */
   void hasGameStarted(byte&, SoundManager* soundManager);
+
+  void unloadTextures() {
+    UnloadTexture(galaxy_background);
+    UnloadTexture(logo);
+  }
 };
