@@ -27,5 +27,9 @@ class Pipe {
   int getMachineCount() {
     return machines.size();
   }
+
+  void resetPipes() {
+  machines.clear();
+  }
 };
 #endif  // PIPE_HPP

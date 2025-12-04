@@ -23,8 +23,8 @@ void Game::updateElements(Graph& graph) {
     if (dist <= radius && graph.isAdjacent(currentNode, i)) {
       int edgeWeight = graph.getEdgeWeight(currentNode, i);
       
+      player.updatePlayer(edgeWeight, i, x, y);
       if (player.getBattery() >= edgeWeight) {
-        player.updatePlayer(edgeWeight, i, x, y);
         exploredNodes[i] = true;
 
         if (node.getType() == 2 && !pipe.hasMachineAt(i)) {
@@ -78,6 +78,16 @@ void Game::resetMatch(Graph& graph) {
   Node startNode = graph.getNode(graph.getStartNode());
   float x = startNode.getX() * scale + offsetX;
   float y = startNode.getY() * scale + offsetY;
+
+  plyResources = 500;
+
+  pipe.resetPipes();
+
+  // Reset a nodos explorados
+  for (size_t i = 0; i < exploredNodes.size(); i++) {
+    exploredNodes[i] = false;
+  }
+
   player.setPlayerPosition(x, y);
   player.rechargeBattery();
 }
