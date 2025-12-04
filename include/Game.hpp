@@ -24,6 +24,8 @@ class Game {
   std::vector<bool> exploredNodes;
   int engineCost = 3000;
 
+  int selectedResourceNode = -1;
+
   void updateElements(Graph& graph);
 
  public:
