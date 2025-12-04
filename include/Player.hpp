@@ -28,6 +28,9 @@ class Player {
     consumeBattery(edgeWeight);
     setCurrentNode(i);
     setPlayerPosition(x, y);
+    if (currentNode == 0) {
+      rechargeBattery();
+    }
   }
 
   void drawPlayer();
