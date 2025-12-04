@@ -39,9 +39,8 @@ void Graph::drawNodes() {
       DrawCircle(x, y, radius, color);
       DrawText(TextFormat("%d", node.getId()), x - 9, y - 9, 18, BLACK);
     } else if (node.getType() == 2) {  // Recurso
-      color = GREEN;
+      color = ORANGE;
       radius = 35.0f;
-      // DrawRectangle(x - 18, y - 18, radius * 2, radius * 2, GREEN);
       DrawCircle(x, y, radius, color);
       // Número de nodo
       DrawText(TextFormat("N: %d", node.getId()), x - 25, y - 15, 18, BLACK);
@@ -53,13 +52,6 @@ void Graph::drawNodes() {
       DrawCircle(x, y, radius, color);
       DrawText(TextFormat("%d", node.getId()), x - 9, y - 9, 18, BLACK);
     }
-
-
-    // DrawCircle(x, y, radius, color);
-    // DrawText(TextFormat("%d", node.getId()), x - 9, y - 9, 18, BLACK);
-
-    // Si el nodo tiene recursos, poner el valor del recurso:
-
   }
 }
 

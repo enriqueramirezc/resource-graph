@@ -9,7 +9,7 @@ void Defeat::initializeDefeatMenu() {
 }
 
 void Defeat::drawDefeatMenu() {
-  const char* defeatTitle = "YOU'VE LOST";
+  const char* defeatTitle = "GAME OVER";
   int defeatTitleWidth = MeasureText(defeatTitle, 130);
   DrawText(defeatTitle, WINDOW_WIDTH / 2 - defeatTitleWidth / 2, (WINDOW_HEIGHT / 2) - 400, 130
     , RED);

@@ -44,7 +44,7 @@ void Game::drawGameElements(Graph& graph) {
   player.drawPlayer();
   // Mostrar batería
   DrawText(TextFormat("Bateria: %d%%", player.getBattery()), 
-    10, 10, 25, WHITE);
+    10, 10, 25, GREEN);
 
   
   if (interactable) 
