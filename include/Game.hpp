@@ -4,6 +4,8 @@
 #include "Button.hpp"
 #include "Graph.hpp"
 #include "Player.hpp"
+#include "Pipe.hpp"
+#include <vector>
 
 /**
  * @brief Clase responsable de la partida en juego.
@@ -11,11 +13,16 @@
 class Game {
  private:
   Player player;
+  Pipe pipe;
+  
   float scale = 1.2f;
   float offsetX = 30.0f;
   float offsetY = 120.0f;
-  // Indicador de si un elemento es interactuable
   std::uint8_t interactable;
+
+  int plyResources;
+  std::vector<bool> exploredNodes;
+  int engineCost = 3000;
 
   void updateElements(Graph& graph);
 
@@ -59,4 +66,11 @@ class Game {
    * @brief Restablece el progreso de la partida.
    */
   void resetMatch(Graph& graph);
+
+  /**
+   * @brief Verificar condición de victoria
+   */
+  bool canBuyEngine() const {
+    return plyResources >= engineCost;
+  }
 };

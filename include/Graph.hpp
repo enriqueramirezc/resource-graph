@@ -15,8 +15,7 @@ class Graph {
   std::vector<std::vector<Edge>> adjList;  // Lista de ady. (porque es disperso)
   int startNode;  // Nodo de inicio
 
-
-    float scale = 1.2f;
+  float scale = 1.2f;
   float offsetX = 30.0f;
   float offsetY = 120.0f;
 
@@ -67,7 +66,6 @@ class Graph {
 
   void drawNodes();
 
-
   bool isAdjacent(int nodeA, int nodeB) const {
     if (nodeA >= adjList.size()) {
       return false;
@@ -86,5 +84,14 @@ class Graph {
     }
     return -1;
   }
+
+  // Algoritmos de búsqueda
+  std::vector<int> bfs(int start, int end);
+  std::vector<int> dfs(int start, int end);
+  std::vector<int> greedy(int start, int end);
+  std::vector<int> dijkstra(int start, int end);
+
+  // Calcular costo de un recorrido
+  int calcPathCost(const std::vector<int>& path);
 };  // class Graph
 #endif  // GRAPH_HPP

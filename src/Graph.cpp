@@ -1,6 +1,11 @@
 // Copyright [2025] Enrique Ramírez
 #include "Graph.hpp"
 #include "raylib.h"
+#include <queue>
+#include <stack>
+#include <limits>
+#include <algorithm>
+
 // Agregar nodo al grafo
 void Graph::addNode(const Node& node) {
   nodes.push_back(node);
@@ -80,4 +85,170 @@ void Graph::drawEdges() {
       , YELLOW);
     }
   }
+}
+
+// BFS (ignora pesos)
+std::vector<int> Graph::bfs(int start, int end) {
+  std::vector<int> parent(nodes.size(), -1);
+  std::vector<bool> visited(nodes.size(), false);
+  std::queue<int> q;
+
+  q.push(start);
+  visited[start] = true;
+
+  while (!q.empty()) {
+    int current = q.front();
+    q.pop();
+
+    if (current == end) break;
+
+    for (const Edge& edge : adjList[current]) {
+      int neighbor = edge.getDestination();
+      if (!visited[neighbor]) {
+        visited[neighbor] = true;
+        parent[neighbor] = current;
+        q.push(neighbor);
+      }
+    }
+  }
+
+  // Reconstruir camino
+  std::vector<int> path;
+  if (parent[end] != -1 || start == end) {
+    for (int v = end; v != -1; v = parent[v]) {
+      path.push_back(v);
+    }
+    std::reverse(path.begin(), path.end());
+  }
+  return path;
+}
+
+// DFS (ignora pesos)
+std::vector<int> Graph::dfs(int start, int end) {
+  std::vector<int> parent(nodes.size(), -1);
+  std::vector<bool> visited(nodes.size(), false);
+  std::stack<int> s;
+
+  s.push(start);
+
+  while (!s.empty()) {
+    int current = s.top();
+    s.pop();
+
+    if (current == end) break;
+
+    if (!visited[current]) {
+      visited[current] = true;
+
+      for (const Edge& edge : adjList[current]) {
+        int neighbor = edge.getDestination();
+        if (!visited[neighbor] && parent[neighbor] == -1) {
+          parent[neighbor] = current;
+          s.push(neighbor);
+        }
+      }
+    }
+  }
+  
+  // Reconstruir camino
+  std::vector<int> path;
+  if (parent[end] != -1 || start == end) {
+    for (int v = end; v != -1; v = parent[v]) {
+      path.push_back(v);
+    }
+    std::reverse(path.begin(), path.end());
+  }
+  return path;
+}
+
+// Elegir vecino con menor peso inmediato
+std::vector<int> Graph::greedy(int start, int end) {
+  std::vector<bool> visited(nodes.size(), false);
+  std::vector<int> path;
+
+  int current = start;
+  path.push_back(current);
+  visited[current] = true;
+
+  while (current != end) {
+    int bestNeighbor = -1;
+    int minWeight = std::numeric_limits<int>::max();
+    
+    for (const Edge& edge : adjList[current]) {
+      int neighbor = edge.getDestination();
+      if (!visited[neighbor] && edge.getWeight() < minWeight) {
+        minWeight = edge.getWeight();
+        bestNeighbor = neighbor;
+      }
+    }
+
+    if (bestNeighbor == -1) {
+      // No hay camino, retornar camino vacío
+      return std::vector<int>();
+    }
+
+    current = bestNeighbor;
+    visited[current] = true;
+    path.push_back(current);
+  }
+  
+  return path;
+}
+
+// Camino de costo mínimo
+std::vector<int> Graph::dijkstra(int start, int end) {
+  std::vector<int> dist(nodes.size(), std::numeric_limits<int>::max());
+  std::vector<int> parent(nodes.size(), -1);
+  std::vector<bool> visited(nodes.size(), false);
+
+  dist[start] = 0;
+
+  for (int i = 0; i < nodes.size(); i++) {
+    // Encontrar nodo no visitado con menor distancia
+    int minDist = std::numeric_limits<int>::max();
+    int u = -1;
+
+    for (int j = 0; j < nodes.size(); j++) {
+      if (!visited[j] && dist[j] < minDist) {
+        minDist = dist[j];
+        u = j;
+      }
+    }
+
+    if (u == -1) break;
+    visited[u] = true;
+
+    // Actualizar distancias de vecinos
+    for (const Edge& edge : adjList[u]) {
+      int v = edge.getDestination();
+      int weight = edge.getWeight();
+
+      if (!visited[v] && dist[u] + weight < dist[v]) {
+        dist[v] = dist[u] + weight;
+        parent[v] = u;
+      }
+    }
+  }
+  
+  // Reconstruir camino
+  std::vector<int> path;
+  if (dist[end] != std::numeric_limits<int>::max()) {
+    for (int v = end; v != -1; v = parent[v]) {
+      path.push_back(v);
+    }
+    std::reverse(path.begin(), path.end());
+  }
+  return path;
+}
+
+// Calcular costo total de un camino
+int Graph::calcPathCost(const std::vector<int>& path) {
+  int totalCost = 0;
+  for (size_t i = 0; i < path.size() - 1; i++) {
+    int weight = getEdgeWeight(path[i], path[i + 1]);
+    if (weight != -1) {
+      totalCost += weight;
+    }
+  }
+  return totalCost;
 }
