@@ -1,0 +1,36 @@
+// Copyright [2025] Enrique Ramírez
+#include "Victory.hpp"
+
+void Victory::initializeVictoryMenu() {
+  Vector2 pos_restart = {WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f + 200};
+  this->restart_button.initializeButton("RESTART", pos_restart, 80, WHITE
+    , YELLOW);
+  Vector2 pos_home = {WINDOW_WIDTH/2.0f, WINDOW_HEIGHT/2.0f + 80};
+  this->home_button.initializeButton("HOME", pos_home, 80, WHITE, YELLOW);
+}
+
+void Victory::drawVictoryMenu() {
+  const char* victoryTitle = "YOU'VE WON";
+  int victoryTitleWidth = MeasureText(victoryTitle, 130);
+  DrawText(victoryTitle, WINDOW_WIDTH / 2 - victoryTitleWidth / 2
+    , (WINDOW_HEIGHT / 2) - 400, 130, GREEN);
+
+    const char* optionsMessage = "Options:";
+    int optionsMessageWidth = MeasureText(optionsMessage, 100);
+    DrawText(optionsMessage, (WINDOW_WIDTH / 2) - (optionsMessageWidth / 2)
+    , (WINDOW_HEIGHT / 2) - 100, 100, YELLOW);
+    
+    // Interfaz de usuario
+    this->home_button.drawButton();
+    this->restart_button.drawButton();
+}
+
+void Victory::gameResumed(byte& resumeVar, SoundManager* soundManager) {
+  resumeVar = (this->restart_button.isButtonBeingClicked(soundManager))? 1
+    : resumeVar;
+}
+
+void Victory::goHome(byte& goHomeVar, SoundManager* soundManager) {
+  goHomeVar = (this->home_button.isButtonBeingClicked(soundManager))? 1
+    : goHomeVar;
+}

@@ -9,6 +9,7 @@
 #include "Defeat.hpp"
 #include "Game.hpp"
 #include "Pause.hpp"
+#include "Victory.hpp"
 #include "SoundManager.hpp"
 
 /**
@@ -25,14 +26,10 @@ int readNodes(Graph& graph) {
   std::string line;
   while (std::getline(archivoNodos, line)) {
     if (line.empty()) continue;
-
-    // Leer cada elemento
     std::stringstream ss(line);
     int id, type, value, x, y;
     char comma;
     ss >> id >> comma >> type >> comma >> value >> comma >> x >> comma >> y;
-
-    // Agregar el elemento al grafo
     graph.addNode(Node(id, type, value, x, y));
   }
   archivoNodos.close();
@@ -76,18 +73,17 @@ int main() {
   SoundManager soundManager;
   Pause pause;
   Defeat defeat;
-
-  // Grafo que representa el planeta
+  Victory victory;
   Graph graph;
 
   // Agregar elementos al grafo
   readNodes(graph);
   readEdges(graph);
 
-  // Ciclo del juego
   std::uint8_t paused = 0;
   std::uint8_t inHome = 1;
   std::uint8_t playing = 0;
+  std::uint8_t won = 0;
   std::uint8_t defeated = 0;
 
   // Inicializar ventana de juego
@@ -103,29 +99,40 @@ int main() {
 
   defeat.initializeDefeatMenu();
 
+  victory.initializeVictoryMenu();
+
   // Inicializar sonidos
   soundManager.initializeSounds();
   // Ciclo de juego
   while (!WindowShouldClose()) {
     window.beginWindowDraw();
+    
     if (inHome) {
       homeScreen.drawHomeScreen();
       homeScreen.hasGameStarted(playing, &soundManager);
       game.resetMatch(graph);
       inHome = !(playing);
-    } else if (playing) {  // partida
+      
+    } else if (playing) {
       game.setInteractable();
       game.drawGameElements(graph);
       game.isGamePaused(paused);
       game.checkDefeat(defeated);
-      playing = !(paused) && !(defeated);
+      
+      if (game.canBuyEngine()) {
+        won = 1;
+      }
+      
+      playing = !(paused) && !(defeated) && !(won);
       if (!playing) game.setNotInteractable();
+      
     } else if (paused) {
       pause.drawPauseMenu();
       pause.gameResumed(playing, &soundManager);
       pause.goHome(inHome, &soundManager);
       paused = !(playing);
       if (paused) paused = !(inHome);
+      
     } else if (defeated) {
       defeat.drawDefeatMenu();
       std::uint8_t restart = 0;
@@ -140,14 +147,30 @@ int main() {
         game.resetMatch(graph);
         defeated = 0;
       }
+      
+    } else if (won) {
+      victory.drawVictoryMenu();
+      std::uint8_t restart = 0;
+      victory.gameResumed(restart, &soundManager);
+      victory.goHome(inHome, &soundManager);
+      if (restart) {
+        game.resetMatch(graph);
+        won = 0;
+        playing = 1;
+      }
+      if (inHome) {
+        game.resetMatch(graph);
+        won = 0;
+      }
     }
+    
     window.endWindowDraw();
   }
+  
   homeScreen.unloadTextures();
   soundManager.unloadSounds();
-  window.killWindow();  // Cierra la ventana
+  window.killWindow();
 
-  // Prueba
   std::cout << "cantidad de nodos: " << graph.getNodeCount() << std::endl;
   std::cout << "Nodo de inicio: " << graph.getStartNode() << std::endl;
   return 0;
