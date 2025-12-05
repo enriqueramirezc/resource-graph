@@ -73,16 +73,6 @@ void Pipe::buildMachine(int nodeId, MachineType type, Graph& graph
   machines.push_back(newMachine);
 }
 
-// void Pipe::updateResourceGen(int& playerRes) {
-
-//   // // if (frameCount >= 60) {
-//   // //   frameCount = 0;
-//   //   for (int i = 0; i < static_cast<int>(machines.size()); i++) {
-//   //     if (playerRes < 0) playerRes = 0;
-//   //   }
-//   // // }
-// }
-
 bool Pipe::hasMachineAt(int nodeId) {
   for (int i = 0; i < static_cast<int>(machines.size()); i++) {
     if (machines[i].getResourceNode() == nodeId) {

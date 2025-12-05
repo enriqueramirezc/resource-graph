@@ -18,14 +18,12 @@ class Pipe {
   // Costos de algoritmos
   int bfsCost = 100;
   int dfsCost = 100;
-  int greedyCost = 300;
-  int dijkstraCost = 500;
+  int greedyCost = 200;
+  int dijkstraCost = 300;
 
   void drawPipelines(Graph& graph);
 
   void buildMachine(int nodeId, MachineType type, Graph& graph, int& playerRes);
-
-  void updateResourceGen(int& playerRes);
 
   bool hasMachineAt(int nodeId);
 

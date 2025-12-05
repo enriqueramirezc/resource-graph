@@ -24,13 +24,18 @@ class Window {
    * establecidos.
   */
   void initializeWindow();
+
   void beginWindowDraw();
 
   /**
    * @brief terminar de mostrar un frame.
    */
   void endWindowDraw();
+
+  /**
+   * @brief Cerrar ventana
+   */
   void killWindow() {
     CloseWindow();
   }
-};
+};  // class Window

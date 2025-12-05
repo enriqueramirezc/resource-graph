@@ -95,7 +95,7 @@ void Game::drawGameElements(Graph& graph) {
     int yPos = 25;
     DrawText("Construir maquina:", 700, yPos, 25, WHITE);
     
-    DrawText(TextFormat("[B] BFS/DFS - %d", pipe.bfsCost), 700, yPos + 30, 20
+    DrawText(TextFormat("[B] BFS - %d", pipe.bfsCost), 700, yPos + 30, 20
       , plyResources >= pipe.bfsCost ? GREEN : RED);
     DrawText(TextFormat("[D] DFS - %d", pipe.dfsCost), 700, yPos + 55, 20
       , plyResources >= pipe.dfsCost ? GREEN : RED);

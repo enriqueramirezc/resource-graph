@@ -8,8 +8,6 @@
 
 - Universidad de Costa Rica | II ciclo 2025
 
-## Descripción
-
 ## Requisitos
 
 Para poder ejecutar el videojuego, es necesario tener instalado lo siguiente:
